@@ -5,12 +5,14 @@
 </head>
 <div><%= link_to "Add a new question", new_question_path %></div>
 <body>
-  <% if @questions %>
-    Question: <span class="question"><%= @questions.question %> </span>
-    <%= button_to 'True', question_answers_path(@questions),  method: :post, params: {guess: :true}%>
-    <%= button_to 'False', question_answers_path(@questions),  method: :post, params: {guess: :false}%>
-  <% else %>
+  <% if @question && @questions %>
+    Question: <span class="question"><%= @question.question %> </span>
+    <%= button_to 'True', question_answers_path(@question),  method: :post, params: {guess: :true}%>
+    <%= button_to 'False', question_answers_path(@question),  method: :post, params: {guess: :false}%>
+  <% elsif @questions.empty? %>
     <div>No questions yet</div>
+  <% else %>
+    <div>You have answered all available questions</div>
   <% end %>
 </body>
 

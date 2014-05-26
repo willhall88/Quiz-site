@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
 
   def index
-    @questions = Question.next_question
+    @question = Question.next_question
+    @questions = Question.all
   end
 
   def new

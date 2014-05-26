@@ -31,11 +31,11 @@ describe 'quiz site ' do
 
   describe 'answering a question' do
     before  do
-      Question.create(question: "Is Paris the capital of France?", answer: "True")
+      @question1 = Question.create(question: "Is Paris the capital of France?", answer: "True")
       Question.create(question: "Is Hamburg the capital of Germany?", answer: "False")
     end
     
-    specify "answering the question correctly" do
+    specify "answering the question moves onto another question" do
       visit '/questions'
       click_on "True"
 
@@ -45,6 +45,17 @@ describe 'quiz site ' do
       expect(page).to have_button 'True'
       expect(page).to have_button 'False'
 
+    end
+
+    specify "answering all questions means there is an end of questions message" do
+      @question1.answers.create(:answer => true)
+      visit '/questions'
+      click_on "True"
+
+      expect(current_path).to eq '/questions'
+      expect(page).to have_content 'You have answered all available questions'
+      expect(page).not_to have_content 'Question: Is Hamburg the capital of Germany?'
+      expect(page).not_to have_content 'Question: Is Paris the capital of France?'
     end
   end
 end
