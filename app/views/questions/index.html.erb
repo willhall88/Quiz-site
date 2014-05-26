@@ -2,9 +2,15 @@
 <html>
 <head>
 
-  <title>Welp</title>
 </head>
-<body>
-<div>No questions yet</div>
 <div><%= link_to "Add a new question", new_question_path %></div>
+<body>
+  <% if @questions %>
+    Question: <span class="question"><%= @questions.question %> </span>
+    <%= button_to 'True', question_answers_path(@questions),  method: :post, params: {guess: :true}%>
+    <%= button_to 'False', question_answers_path(@questions),  method: :post, params: {guess: :false}%>
+  <% else %>
+    <div>No questions yet</div>
+  <% end %>
+</body>
 
