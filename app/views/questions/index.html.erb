@@ -3,6 +3,10 @@
 
 
   <% if user_signed_in? %>
+    <li>
+      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+      <%= link_to('Edit registration', edit_user_registration_path) %>        
+    </li>
     <% if @question && @questions %>
       Question: <span class="question"><%= @question.question %> </span>
       <%= button_to 'True', question_answers_path(@question),  method: :post, params: {guess: :true}%>
