@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
 
+  before_action :authenticate_user!
+
   def index
     @question = Question.next_question
     @questions = Question.all
