@@ -81,3 +81,23 @@ describe 'answering a question' do
     end
   end
 end
+
+describe "showing the statistics" do
+  before  do
+    user = User.create(email:"willhall88@hotmail.com", password:'12345678', password_confirmation:'12345678')
+    login_as user
+    @question1 = Question.create(question: "Is Paris the capital of France?", answer: "True")
+    Question.create(question: "Is Hamburg the capital of Germany?", answer: "False")
+    Question.create(question: "Is London the capital of England?", answer: "True")
+  end
+
+  it "should show the users average correct answers" do
+    visit '/questions'
+
+    expect(page).to have_content 'Correct Answers: N/A'
+    click_on "True"
+    expect(page).to have_content 'Correct Answers: 100%'
+    click_on "True"
+    expect(page).to have_content 'Correct Answers: 50%'
+  end
+end

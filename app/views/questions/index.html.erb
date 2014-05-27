@@ -11,6 +11,9 @@
       Question: <span class="question"><%= @question.question %> </span>
       <%= button_to 'True', question_answers_path(@question),  method: :post, params: {guess: :true}%>
       <%= button_to 'False', question_answers_path(@question),  method: :post, params: {guess: :false}%>
+      
+      <h4>Correct Answers: <%= @question.average_correct %></h4>
+
     <% elsif @questions.empty? %>
       <div>No questions yet</div>
     <% else %>
